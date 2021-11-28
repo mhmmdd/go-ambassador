@@ -42,6 +42,7 @@ Vagrant.configure("2") do |config|
   # accessing "localhost:8080" will access port 80 on the guest machine.
   # NOTE: This will enable public access to the opened port
   config.vm.network "forwarded_port", guest: 8000, host: 8000, disabled: false # fiber
+  config.vm.network "forwarded_port", guest: 5432, host: 5432, disabled: false # postgres
 
   config.ssh.forward_agent = true
   config.ssh.forward_x11 = true
