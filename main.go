@@ -1,17 +1,13 @@
 package main
 
 import (
+	"ambassador/src/database"
 	"github.com/gofiber/fiber/v2"
-	"gorm.io/driver/postgres"
-	"gorm.io/gorm"
 )
 
 func main() {
-	dsn := "host=db user=postgres password=123 dbname=postgres port=5432 sslmode=disable"
-	_, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
-	if err != nil {
-		panic("Could not connect with the database!")
-	}
+	database.Connect()
+	database.AutoMigrate()
 
 	app := fiber.New()
 
