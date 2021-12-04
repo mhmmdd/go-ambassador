@@ -5,7 +5,6 @@ import (
 	"ambassador/src/models"
 	"github.com/gofiber/fiber/v2"
 	"github.com/golang-jwt/jwt"
-	"golang.org/x/crypto/bcrypt"
 	"strconv"
 	"time"
 )
@@ -24,14 +23,13 @@ func Register(c *fiber.Ctx) error {
 		})
 	}
 
-	password, _ := bcrypt.GenerateFromPassword([]byte(data["password"]), 12)
 	user := models.User{
 		FirstName:    data["first_name"],
 		LastName:     data["last_name"],
 		Email:        data["email"],
-		Password:     password,
 		IsAmbassador: false,
 	}
+	user.SetPassword(data["password"])
 
 	database.DB.Create(&user)
 
@@ -52,8 +50,7 @@ func Login(c *fiber.Ctx) error {
 
 	database.DB.Where("email = ?", data["email"]).First(&user)
 
-	err := bcrypt.CompareHashAndPassword(user.Password, []byte(data["password"]))
-	if user.Id == 0 || err != nil {
+	if user.Id == 0 || user.ComparePassword(data["password"]) != nil {
 		c.Status(fiber.StatusBadRequest)
 		return c.JSON(fiber.Map{
 			"message": "Invalid Credentials",
@@ -85,4 +82,23 @@ func Login(c *fiber.Ctx) error {
 	return c.JSON(fiber.Map{
 		"message": "success",
 	})
+}
+
+func User(c *fiber.Ctx) error {
+	cookie := c.Cookies("jwt")
+	token, err := jwt.ParseWithClaims(cookie, &jwt.StandardClaims{}, func(token *jwt.Token) (interface{}, error) {
+		return []byte("secret"), nil
+	})
+	if err != nil || !token.Valid {
+		c.Status(fiber.StatusUnauthorized)
+		return c.JSON(fiber.Map{
+			"message": "unauthenticated",
+		})
+	}
+	payload := token.Claims.(*jwt.StandardClaims)
+
+	var user models.User
+	database.DB.Where("id = ?", payload.Subject).First(&user)
+
+	return c.JSON(user)
 }
