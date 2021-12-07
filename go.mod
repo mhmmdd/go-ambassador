@@ -4,6 +4,7 @@ go 1.17
 
 require (
 	github.com/andybalholm/brotli v1.0.2 // indirect
+	github.com/bxcodec/faker/v3 v3.6.0 // indirect
 	github.com/gofiber/fiber/v2 v2.22.0 // indirect
 	github.com/golang-jwt/jwt v3.2.2+incompatible // indirect
 	github.com/jackc/chunkreader/v2 v2.0.1 // indirect
