@@ -21,10 +21,16 @@ services:
       - postgres:/data/postgres
     ports:
       - "5432:5432"
-#    networks:
-#      - postgres
-#    volumes:
-#      - .dbdata:/var/lib/postgres
+  #    networks:
+  #      - postgres
+  #    volumes:
+  #      - .dbdata:/var/lib/postgres
+
+  redis:
+    image: redis:latest
+    ports:
+      - "6379:6379"
+
 
 #networks:
 #  postgres:
