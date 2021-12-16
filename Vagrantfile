@@ -43,6 +43,7 @@ Vagrant.configure("2") do |config|
   # NOTE: This will enable public access to the opened port
   config.vm.network "forwarded_port", guest: 8000, host: 8000, disabled: false # fiber
   config.vm.network "forwarded_port", guest: 5432, host: 5432, disabled: false # postgres
+  config.vm.network "forwarded_port", guest: 6379, host: 6379, disabled: false # redis
 
   config.ssh.forward_agent = true
   config.ssh.forward_x11 = true
