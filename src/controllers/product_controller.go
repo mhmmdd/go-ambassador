@@ -107,6 +107,7 @@ func ProductsBackend(c *fiber.Ctx) error {
 		json.Unmarshal([]byte(result), &products)
 	}
 
+	// Searching
 	var searchedProducts []models.Product
 	if s := c.Query("s"); s != " " {
 		lower := strings.ToLower(s)
@@ -120,6 +121,7 @@ func ProductsBackend(c *fiber.Ctx) error {
 		searchedProducts = products
 	}
 
+	// Sorting
 	if sortParam := c.Query("sort"); sortParam != "" {
 		sortLower := strings.ToLower(sortParam)
 		if sortLower == "asc" {
@@ -133,5 +135,25 @@ func ProductsBackend(c *fiber.Ctx) error {
 		}
 	}
 
-	return c.JSON(searchedProducts)
+	// Pagination
+	var total = len(searchedProducts)
+	page, _ := strconv.Atoi(c.Query("page", "1"))
+	perPage := 9
+
+	var data []models.Product
+
+	if total <= page*perPage && total >= (page-1)*perPage {
+		data = searchedProducts[(page-1)*perPage : total]
+	} else if total >= page*perPage {
+		data = searchedProducts[(page-1)*perPage : page*perPage]
+	} else {
+		data = []models.Product{}
+	}
+
+	return c.JSON(fiber.Map{
+		"data":     data,
+		"total":    total,
+		"page":     page,
+		"lastPage": total/perPage + 1,
+	})
 }
