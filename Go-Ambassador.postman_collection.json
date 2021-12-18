@@ -105,6 +105,91 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Get Products Using Redis Cache",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8000/api/ambassador/products/frontend",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"ambassador",
+								"products",
+								"frontend"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Search and Sort Products",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8000/api/ambassador/products/backend?s=x&sort=asc",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"ambassador",
+								"products",
+								"backend"
+							],
+							"query": [
+								{
+									"key": "s",
+									"value": "x"
+								},
+								{
+									"key": "sort",
+									"value": "asc"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Pagination Products",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8000/api/ambassador/products/backend",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"ambassador",
+								"products",
+								"backend"
+							],
+							"query": [
+								{
+									"key": "s",
+									"value": "x",
+									"disabled": true
+								},
+								{
+									"key": "sort",
+									"value": "asc",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
