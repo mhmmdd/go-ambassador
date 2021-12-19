@@ -36,3 +36,5 @@ npx create-react-app react-admin --template typescript
 ### React Router Dom
 npm i react-router-dom
 npm i -D @types/react-router-dom
+
+npm i axios
