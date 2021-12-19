@@ -28,3 +28,7 @@ go get github.com/bxcodec/faker/v3
 
 ### Redis
 go get github.com/go-redis/redis/v8
+
+
+## React
+npx create-react-app react-admin --template typescript
