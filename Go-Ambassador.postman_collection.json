@@ -334,6 +334,36 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Confirm Orders",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"source\": \"culpa\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8000/api/checkout/orders/confirm",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"checkout",
+								"orders",
+								"confirm"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
