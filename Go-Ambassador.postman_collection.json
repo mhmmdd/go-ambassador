@@ -263,6 +263,81 @@
 			]
 		},
 		{
+			"name": "Checkout",
+			"item": [
+				{
+					"name": "Get Stats",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8000/api/ambassador/stats",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"ambassador",
+								"stats"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Checkout Links",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8000/api/checkout/links/XOBIYuR",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"checkout",
+								"links",
+								"XOBIYuR"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Orders",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"first_name\": \"a\",\r\n    \"last_name\": \"a\",\r\n    \"email\": \"a@a.com\",\r\n    \"address\": \"a\",\r\n    \"country\": \"a\",\r\n    \"city\": \"a\",\r\n    \"zip\": \"a\",\r\n    \"code\": \"\",\r\n    \"products\": [\r\n        {\r\n            \"product_id\": 2,\r\n            \"quantity\": 2\r\n        },\r\n        {\r\n            \"product_id\": 4,\r\n            \"quantity\": 1\r\n        },\r\n        {\r\n            \"product_id\": 5,\r\n            \"quantity\": 3\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8000/api/checkout/orders",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"checkout",
+								"orders"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
 			"name": "Admin Register",
 			"request": {
 				"method": "POST",
