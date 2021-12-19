@@ -32,3 +32,7 @@ go get github.com/go-redis/redis/v8
 
 ## React
 npx create-react-app react-admin --template typescript
+
+### React Router Dom
+npm i react-router-dom
+npm i -D @types/react-router-dom
