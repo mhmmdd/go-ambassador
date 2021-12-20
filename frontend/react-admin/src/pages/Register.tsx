@@ -16,7 +16,7 @@ class Register extends Component {
   submit = async (e: SyntheticEvent) => {
     e.preventDefault();
 
-    await axios.post('http://localhost:8000/api/admin/register', {
+    await axios.post('register', {
       first_name: this.firstName,
       last_name: this.lastName,
       email: this.email,
@@ -56,7 +56,7 @@ class Register extends Component {
 
             <div className="form-floating">
               <input type="email" className="form-control"
-                     onChange={event => this.firstName = event.target.value}
+                     onChange={event => this.email = event.target.value}
                      placeholder="name@example.com"/>
               <label>Email address</label>
             </div>
