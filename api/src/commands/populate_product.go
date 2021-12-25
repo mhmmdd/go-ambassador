@@ -14,7 +14,7 @@ func main() {
 			Title:       faker.Username(),
 			Description: faker.Username(),
 			Image:       faker.URL(),
-			Price:       float64(rand.Intn(90) * 10),
+			Price:       float64(rand.Intn(90) + 10),
 		}
 		database.DB.Create(&product)
 	}

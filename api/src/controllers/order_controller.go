@@ -46,7 +46,7 @@ func CreateOrder(c *fiber.Ctx) error {
 		Code: request.Code,
 	}
 
-	database.DB.Preload("User").First(&link)
+	database.DB.Preload("User").First(&link, &link)
 
 	if link.Id == 0 {
 		c.Status(fiber.StatusBadRequest)
@@ -102,10 +102,9 @@ func CreateOrder(c *fiber.Ctx) error {
 				"messages": err.Error(),
 			})
 		}
-
-		tx.Commit()
-
 	}
+
+	tx.Commit()
 	return c.JSON(order)
 }
 

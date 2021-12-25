@@ -1,9 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import Layout from "../components/Layout";
-import axios from "axios";
-import {User} from "../models/user";
 import {
-    Button,
     Paper,
     Table,
     TableBody,
@@ -14,18 +10,22 @@ import {
     TablePagination,
     TableRow
 } from "@mui/material";
-import {Link} from "react-router-dom";
+import Layout from "../components/Layout";
+import {Link} from "../models/link";
+import axios from "axios";
+import {useParams} from 'react-router-dom';
 
-const Users = () => {
-    const [users, setUsers] = useState<User[]>([]);
+const Links = () => {
+    const [links, setLinks] = useState<Link[]>([]);
     const [page, setPage] = useState(0);
     const perPage = 10;
+    const {id} = useParams();
 
     useEffect(() => {
         (
             async () => {
-                await axios.get('ambassadors').then((res) => {
-                    setUsers(res.data);
+                await axios.get(`users/${id}/links`).then((res) => {
+                    setLinks(res.data);
                 })
             }
         )()
@@ -38,33 +38,29 @@ const Users = () => {
                     <TableHead>
                         <TableRow>
                             <TableCell>#</TableCell>
-                            <TableCell align="right">Name</TableCell>
-                            <TableCell align="right">Email</TableCell>
-                            <TableCell align="right">Actions</TableCell>
+                            <TableCell align="right">Code</TableCell>
+                            <TableCell align="right">Count</TableCell>
+                            <TableCell align="right">Revenue</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {users.slice(page * perPage, (page + 1) * perPage).map((user) => (
+                        {links.slice(page * perPage, (page + 1) * perPage).map((link) => (
                             <TableRow
-                                key={user.id}
+                                key={link.id}
                                 sx={{'&:last-child td, &:last-child th': {border: 0}}}
                             >
                                 <TableCell component="th" scope="row">
-                                    {user.id}
+                                    {link.id}
                                 </TableCell>
-                                <TableCell align="right">{user.first_name} {user.last_name}</TableCell>
-                                <TableCell align="right">{user.email}</TableCell>
-                                <TableCell align="right">
-                                    <Button variant={"contained"} color={"primary"}
-                                            component={Link} to={`${user.id}/links`}>
-                                        View
-                                    </Button>
-                                </TableCell>
+                                <TableCell align="right">{link.code}</TableCell>
+                                <TableCell align="right">{link.orders == null ? '' : link.orders.length}</TableCell>
+                                <TableCell
+                                    align="right">{link.orders == null ? '' : link.orders.reduce((s, o) => s + o.total, 0)}</TableCell>
                             </TableRow>
                         ))}
                     </TableBody>
                     <TableFooter>
-                        <TablePagination count={users.length} page={page}
+                        <TablePagination count={links.length} page={page}
                                          rowsPerPageOptions={[]}
                                          onPageChange={(e, newPage) => setPage(newPage)} rowsPerPage={perPage}/>
                     </TableFooter>
@@ -75,4 +71,4 @@ const Users = () => {
     );
 };
 
-export default Users;
+export default Links;
