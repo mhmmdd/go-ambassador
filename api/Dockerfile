@@ -1,4 +1,8 @@
-FROM golang:1.17
+FROM golang:1.17-alpine3.14
+
+# add a non-root user to run our code as
+RUN adduser --disabled-password --gecos "" appuser
+USER appuser
 
 WORKDIR /app
 COPY go.mod .
@@ -10,7 +14,6 @@ RUN go mod download
 
 COPY . .
 
-# binary will be $(go env GOPATH)/bin/air
-RUN curl -sSfL https://raw.githubusercontent.com/cosmtrek/air/master/install.sh | sh -s -- -b $(go env GOPATH)/bin
+RUN go install github.com/cosmtrek/air@latest
 
 CMD ["air"]
