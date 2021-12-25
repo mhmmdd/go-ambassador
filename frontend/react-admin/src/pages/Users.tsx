@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import Layout from "../components/Layout";
 import axios from "axios";
 import {User} from "../models/user";
+import {Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow} from "@mui/material";
 
 const Users = () => {
     const [users, setUsers] = useState<User[]>([]);
@@ -17,28 +18,34 @@ const Users = () => {
 
     return (
         <Layout>
-            <table className="table table-striped table-sm">
-                <thead>
-                <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Name</th>
-                    <th scope="col">Email</th>
-                    <th scope="col">Actions</th>
-                </tr>
-                </thead>
-                <tbody>
-                {users.map(user => {
-                    return (
-                        <tr>
-                            <td>{user.id}</td>
-                            <td>{user.first_name} {user.last_name}</td>
-                            <td>{user.email}</td>
-                            <td></td>
-                        </tr>
-                    )
-                })}
-                </tbody>
-            </table>
+            <TableContainer component={Paper}>
+                <Table sx={{minWidth: 650}} aria-label="simple table">
+                    <TableHead>
+                        <TableRow>
+                            <TableCell>#</TableCell>
+                            <TableCell align="right">Name</TableCell>
+                            <TableCell align="right">Email</TableCell>
+                            <TableCell align="right">Actions</TableCell>
+                        </TableRow>
+                    </TableHead>
+                    <TableBody>
+                        {users.map((user) => (
+                            <TableRow
+                                key={user.id}
+                                sx={{'&:last-child td, &:last-child th': {border: 0}}}
+                            >
+                                <TableCell component="th" scope="row">
+                                    {user.id}
+                                </TableCell>
+                                <TableCell align="right">{user.first_name} {user.last_name}</TableCell>
+                                <TableCell align="right">{user.email}</TableCell>
+                                <TableCell align="right"></TableCell>
+                            </TableRow>
+                        ))}
+                    </TableBody>
+                </Table>
+            </TableContainer>
+
         </Layout>
     );
 };
