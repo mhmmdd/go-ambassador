@@ -12,7 +12,7 @@ ENV GOPROXY=https://proxy.golang.org,direct
 
 RUN go mod download
 
-COPY api .
+COPY . .
 
 RUN go install github.com/cosmtrek/air@latest
 
